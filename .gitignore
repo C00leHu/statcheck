@@ -1,0 +1,38 @@
+# dependencies
+node_modules/
+
+# next.js build output
+.next/
+out/
+build/
+
+# env files — never commit secrets (see .env.example)
+.env
+.env*.local
+
+# sqlite data (WAL sidecars included)
+data/
+*.db
+*.db-wal
+*.db-shm
+*.db-journal
+
+# encrypted backups contain production data — don't push them
+backups/
+
+# typescript build info (generated)
+*.tsbuildinfo
+next-env.d.ts
+
+# logs
+*.log
+npm-debug.log*
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# deploy targets
+.vercel/
