@@ -1,6 +1,8 @@
 # StatCheck
 
-Self-hosted uptime monitoring with public status pages. Monitor services over HTTP(S) and TCP, track incidents with public timelines, and give your users a live status page — all on your own server, with your own SQLite database.
+Free hosted uptime monitoring with public status pages. Monitor services over HTTP(S) and TCP, track incidents with public timelines, and give your users a live status page.
+
+This repo is open source for transparency — the code here is what runs the hosted version. Inspect it, run it locally, or contribute.
 
 ## Features
 
@@ -11,7 +13,7 @@ Self-hosted uptime monitoring with public status pages. Monitor services over HT
 - **Alert webhooks** — outage and recovery alerts via Discord, Slack, or any JSON webhook, with per-endpoint delivery logs
 - **Response-time tracking** — per-monitor latency graphs and averages
 - **API-first** — every dashboard action runs through the same JSON API the UI uses
-- **No sub-processors** — self-hosted, no email / analytics / payment vendors by default
+- **Open source for transparency** — this repo is the code that runs the hosted version; audit it or contribute
 
 ## Stack
 
@@ -94,11 +96,11 @@ All dashboard actions go through JSON routes under `app/api/` (monitors, inciden
 - `GET /api/health` → `200 {"ok":true,…}` only when DB + secrets are healthy (use it as your uptime probe / load-balancer check)
 - `POST /api/cron/check` (Bearer `CRON_SECRET`) → runs due checks; call every minute
 
-## Production deployment
+## Operating the hosted instance
 
-Single-server, self-hosted. Full runbook — secrets, file permissions, systemd service + timer, reverse proxy/TLS, updates, incident response, GDPR operations — in **[DEPLOY.md](DEPLOY.md)**. Read it fully before the first deploy.
+The hosted version is run from this repo. Full operator runbook — secrets, file permissions, systemd service + timer, reverse proxy/TLS, updates, incident response, GDPR operations — in **[DEPLOY.md](DEPLOY.md)**.
 
-## Security notes
+## Operator security notes
 
 - The app locks `data/` to `0700` and DB/env files to `0600` at startup on POSIX systems; run it as a dedicated non-root user on Linux.
 - One app instance per SQLite file (WAL mode; no concurrent writers from multiple instances).
